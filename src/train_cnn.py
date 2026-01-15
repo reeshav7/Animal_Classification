@@ -91,4 +91,51 @@ plt.plot(history.history["loss"], label="Train")
 plt.plot(history.history["val_loss"], label="Validation")
 plt.title("Loss"); plt.legend()
 
+# ================= EVALUATION GRAPHS =================
+
+# Predict on test set
+test_gen.reset()
+pred_probs = model.predict(test_gen)
+y_pred = np.argmax(pred_probs, axis=1)
+y_true = test_gen.classes
+
+# ===== Confusion Matrix =====
+cm = confusion_matrix(y_true, y_pred)
+
+plt.figure(figsize=(8,6))
+sns.heatmap(
+    cm,
+    annot=True,
+    fmt="d",
+    cmap="Blues",
+    xticklabels=class_names,
+    yticklabels=class_names
+)
+plt.xlabel("Predicted Label")
+plt.ylabel("True Label")
+plt.title("Confusion Matrix")
+plt.tight_layout()
+plt.show()
+
+# ===== Per-Class Accuracy =====
+class_acc = cm.diagonal() / cm.sum(axis=1)
+
+plt.figure(figsize=(8,4))
+plt.bar(class_names, class_acc)
+plt.ylabel("Accuracy")
+plt.title("Per-Class Accuracy")
+plt.xticks(rotation=45)
+plt.ylim(0,1)
+plt.tight_layout()
+plt.show()
+
+# ===== Classification Report =====
+print("\nClassification Report:\n")
+print(classification_report(
+    y_true,
+    y_pred,
+    target_names=class_names
+))
+
+
 plt.show()
