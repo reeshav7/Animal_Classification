@@ -13,12 +13,12 @@ import seaborn as sns
 import joblib
 
 # --------- Settings ---------
-IMG_SIZE = 64                 # same as your previous ANN pipeline
-PCA_MAX_COMPONENTS = 600      # upper bound, will be reduced if needed
+IMG_SIZE = 64
+PCA_MAX_COMPONENTS = 600
 EPOCHS = 40
 BATCH_SIZE = 64
 
-TRAIN_DIR = "../data/train"   # expected output from dataset splitter
+TRAIN_DIR = "../data/train"   
 TEST_DIR  = "../data/test"
 MODEL_DIR = "models"
 os.makedirs(MODEL_DIR, exist_ok=True)
